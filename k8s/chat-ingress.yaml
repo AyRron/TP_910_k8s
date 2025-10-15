@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: chat
+  labels:
+    app: chat
+    tiers: backend
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: chat.demo.learninglab.eu
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: chat
+            port: 
+              number: 80
