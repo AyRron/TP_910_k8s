@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: backend
+    tiers: backend
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+      lang: java
+  template:
+    metadata:
+      labels:
+        app: backend
+        lang: java
+    spec:
+      containers:
+        - image: ghcr.io/ayrron/tp-back_info-910:main
+          name: backend
+          ports:
+            - containerPort: 8080
+              name: http
+          resources: 
+            requests:
+              memory: "200Mi"
+              cpu: "200m"
+            limits:
+              memory: "500Mi"
+              cpu: "350m"
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: "/"
+

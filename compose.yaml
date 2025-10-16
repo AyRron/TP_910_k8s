@@ -1,37 +1,12 @@
 version: "3.9"
 
 services:
-  mysql:
-    image: "docker.io/library/mysql:8.4"
-    environment:
-      MYSQL_ROOT_PASSWORD_FILE: "/run/secrets/mysql/password"
-    secrets:
-      - source: mysql
-        target: mysql/password
-    volumes:
-      - "./mysql_data:/var/lib/mysql"
-    configs:
-      - source: chat_init
-        target: /docker-entrypoint-initdb.d/chat.sql
-    networks:
-      - demonet
-    healthcheck:
-      test: ["CMD-SHELL", "echo &>/dev/null < /dev/tcp/127.0.0.1/3306 || exit 1"]
-      interval: 15s
-      timeout: 10s
-      retries: 6
-      start_period: 30s
+  backend:
+    image: "ghcr.io/ayrron/tp-back_info-910:main"
 
-  chat:
-    image: "registry.gitlab.com/docker-exemple/chat_docker/chat:master"
-    build:             
-      context: php
-      dockerfile: Dockerfile
-    secrets:
-      - source: mysql
-        target: mysql/password
     ports:
-      - 9000:80
+      - 8080:80
+
     networks:
       - demonet
     healthcheck:
@@ -41,17 +16,21 @@ services:
       retries: 6
       start_period: 30s
       start_interval: 5s
-    depends_on:
-      mysql:
-        condition: service_healthy
+
+
+  frontend:
+    image: "ghcr.io/mathisfeltrin/info910-f1-leaderboard-frontend:latest"
+    ports:
+      - 80:80
+    networks:
+      - demonet
+    healthcheck:
+      test: ["CMD", "/usr/bin/curl", "--head", "-sSf", "http://localhost"]
+      interval: 15s
+      timeout: 15s
+      retries: 6
+      start_period: 30s
+      start_interval: 5s
 
 networks:
   demonet:
-
-secrets:
-  mysql:
-    file: ./passwd
-
-configs:
-  chat_init:
-    file: ./chat.mysql
