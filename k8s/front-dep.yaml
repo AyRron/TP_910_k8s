@@ -20,6 +20,7 @@ spec:
       containers:
         - image: ghcr.io/mathisfeltrin/info910-f1-leaderboard-frontend:main
           name: frontend
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
               name: http

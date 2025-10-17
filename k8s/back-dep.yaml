@@ -20,6 +20,7 @@ spec:
       containers:
         - image: ghcr.io/ayrron/tp-back_info-910:main
           name: backend
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
               name: http
