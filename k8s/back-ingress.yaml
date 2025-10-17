@@ -11,17 +11,10 @@ spec:
   - host: backdevops.tp.tpback
     http:
       paths:
-          - path: /api(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: backend
-                port:
-                  number: 8080
-          - path: /(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: frontend
-                port:
-                  number: 80
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: backend
+            port: 
+              number: 8080
