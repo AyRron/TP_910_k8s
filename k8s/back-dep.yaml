@@ -23,7 +23,7 @@ spec:
           ports:
             - containerPort: 8080
               name: http
-          resources: 
+          resources:
             requests:
               memory: "200Mi"
               cpu: "200m"
@@ -33,7 +33,16 @@ spec:
           livenessProbe:
             httpGet:
               port: 8080
-              path: "/"
-            initialDelaySeconds: 30
+              path: "/api/drivers/health"
+            initialDelaySeconds: 60
             periodSeconds: 10
-
+            timeoutSeconds: 3
+            failureThreshold: 5
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: "/api/drivers/health"
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
