@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: frontend
+    tiers: frontend
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+      lang: react
+  template:
+    metadata:
+      labels:
+        app: frontend
+        lang: react
+    spec:
+      containers:
+        - image: ghcr.io/mathisfeltrin/info910-f1-leaderboard-frontend:main
+          name: frontend
+          ports:
+            - containerPort: 80
+              name: http
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+          livenessProbe:
+            httpGet:
+              port: 80
+              path: "/"

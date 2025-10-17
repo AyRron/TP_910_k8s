@@ -17,9 +17,8 @@ services:
       start_period: 30s
       start_interval: 5s
 
-
   frontend:
-    image: "ghcr.io/mathisfeltrin/info910-f1-leaderboard-frontend:latest"
+    image: "ghcr.io/mathisfeltrin/info910-f1-leaderboard-frontend:main"
     ports:
       - 80:80
     networks:
