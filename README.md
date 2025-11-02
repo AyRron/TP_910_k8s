@@ -2,6 +2,31 @@
 
 Application de classement F1 avec un backend Java Spring Boot et un frontend React, déployée sur Kubernetes avec Minikube.
 
+## 👥 Membres du binôme
+
+- **Mathis Feltrin**
+- **Cyril Pitar**
+
+## 📝 Description de l'application
+
+Cette application web permet de consulter les statistiques complètes des pilotes de Formule 1. Elle offre les fonctionnalités suivantes :
+
+### Fonctionnalités principales
+
+- **Page d'accueil** : Introduction à l'application avec un test de connexion à l'API backend (health check)
+- **Liste des pilotes** : Affichage de tous les pilotes de F1 dans un tableau avec leurs statistiques principales (numéro, nom, écurie, âge, victoires, podiums, pole positions)
+- **Détails d'un pilote** : Page dédiée pour chaque pilote avec ses statistiques détaillées et son historique de réalisations
+- **Interface moderne** : Design responsive avec Tailwind CSS et animations fluides
+
+### Architecture technique
+
+- **Frontend** : Application React 19 avec TypeScript, routée avec React Router v7, stylée avec Tailwind CSS v4
+- **Backend** : API REST Java Spring Boot exposant les endpoints suivants :
+  - `GET /api/drivers/list` - Liste de tous les pilotes avec leurs statistiques
+  - `GET /api/drivers/{name}` - Détails d'un pilote spécifique
+  - `GET /api/drivers/health` - Vérification de l'état du service
+- **Déploiement** : Application conteneurisée avec Docker et orchestrée par Kubernetes
+
 ## Liens des repositories
 
 - [Repository Front-end](https://github.com/mathisfeltrin/info910-f1-leaderboard-frontend)
@@ -74,6 +99,23 @@ Accès à l'application :
 - **Backend API**: http://localhost:8080/api/drivers/health
 
 **Note**: Les commandes port-forward doivent rester actives dans leurs terminaux respectifs. Utilisez `Ctrl+C` pour les arrêter.
+
+### Comment utiliser l'application
+
+Une fois les services démarrés :
+
+1. **Accédez à la page d'accueil** (http://localhost:3000)
+   - Cliquez sur "Tester l'API Backend" pour vérifier la connexion
+   - Cliquez sur "Voir tous les pilotes" pour accéder à la liste
+
+2. **Consultez la liste des pilotes** (http://localhost:3000/drivers)
+   - Parcourez le tableau avec tous les pilotes et leurs statistiques
+   - Cliquez sur n'importe quelle ligne pour voir les détails d'un pilote
+
+3. **Explorez les détails d'un pilote** (http://localhost:3000/drivers/{lastName})
+   - Visualisez les statistiques complètes du pilote
+   - Consultez son historique de réalisations
+   - Utilisez le bouton de retour pour revenir à la liste
 
 ### 5. Commandes utiles
 
